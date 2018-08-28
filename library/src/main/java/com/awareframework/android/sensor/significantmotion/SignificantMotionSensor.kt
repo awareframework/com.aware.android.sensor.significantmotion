@@ -19,7 +19,6 @@ import com.awareframework.android.sensor.significantmotion.model.SignificantMoti
 import kotlin.math.abs
 import kotlin.math.sqrt
 
-
 /**
  * This sensor is used to track device significant motion.
  * Also used internally by AWARE if available to save battery when the device is still with high-frequency sensors
@@ -34,9 +33,8 @@ class SignificantMotionSensor : AwareSensor(), SensorEventListener {
     companion object {
         const val TAG = "AWARE::Significant"
 
-
         /**
-         * Broadcasted when there is significant motion
+         * Fired when there is significant motion
          */
         const val ACTION_AWARE_SIGNIFICANT_MOTION_STARTED = "ACTION_AWARE_SIGNIFICANT_MOTION_STARTED"
         const val ACTION_AWARE_SIGNIFICANT_MOTION_ENDED = "ACTION_AWARE_SIGNIFICANT_MOTION_ENDED"
@@ -50,9 +48,6 @@ class SignificantMotionSensor : AwareSensor(), SensorEventListener {
         const val ACTION_AWARE_SIGNIFICANT_MOTION_SYNC = "com.awareframework.android.sensor.significantmotion.SENSOR_SYNC"
 
         val CONFIG = Config()
-
-        var currentInterval: Int = 0
-            private set
 
         fun start(context: Context, config: Config? = null) {
             if (config != null)
@@ -76,7 +71,6 @@ class SignificantMotionSensor : AwareSensor(), SensorEventListener {
     private var mAccelerometer: Sensor? = null
     private lateinit var sensorThread: HandlerThread
     private lateinit var sensorHandler: Handler
-
 
     private val buffer: ArrayList<Float> = ArrayList()
 
@@ -186,7 +180,7 @@ class SignificantMotionSensor : AwareSensor(), SensorEventListener {
 
             if (currentSignificantMotionState != lastSignificantMotionState) {
                 val data = SignificantMotionData(
-                        isMoving = currentSignificantMotionState
+                        moving = currentSignificantMotionState
                 )
 
                 dbEngine?.save(data, SignificantMotionData.TABLE_NAME)

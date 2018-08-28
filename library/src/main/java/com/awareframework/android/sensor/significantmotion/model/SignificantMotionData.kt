@@ -10,7 +10,7 @@ import com.google.gson.Gson
  * @date 27/08/2018
  */
 data class SignificantMotionData(
-        var isMoving: Boolean = false
+        var moving: Boolean = false
 ) : AwareObject(jsonVersion = 1) {
 
     companion object {
