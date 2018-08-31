@@ -181,7 +181,11 @@ class SignificantMotionSensor : AwareSensor(), SensorEventListener {
             if (currentSignificantMotionState != lastSignificantMotionState) {
                 val data = SignificantMotionData(
                         moving = currentSignificantMotionState
-                )
+                ).apply {
+                    deviceId = CONFIG.deviceId
+                    label = CONFIG.label
+                    timestamp = System.currentTimeMillis()
+                }
 
                 dbEngine?.save(data, SignificantMotionData.TABLE_NAME)
                 logd("Significant motion: $data")
